@@ -1,18 +1,22 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM '* * * * *'
-    }
+//    triggers {
+//        pollSCM '* * * * *'
+//    }
     stages {
         stage('Build') {
             steps {
-                sh './gradlew assemble'
+//                sh './gradlew assemble'
+                sh 'mkdir origin'
+                sh 'touch "${BRANCH_NAME##origin/}_${TAG_NAME}"'
+                sh 'cat readable >> "${BRANCH_NAME##origin/}_${TAG_NAME}"'
             }
         }
         stage('Test') {
             steps {
-                sh './gradlew test'
+//                sh './gradlew test'
+                echo "This build was successful!"
             }
         }
     }
